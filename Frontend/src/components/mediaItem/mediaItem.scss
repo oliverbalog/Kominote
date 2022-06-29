@@ -1,0 +1,32 @@
+.item {
+  display: block;
+  width: 40vw;
+  border-radius: 9px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 5px 10px -10px;
+  margin-bottom: 3em;
+  margin-top: 3em;
+  img {
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+  }
+  iframe {
+    border-radius: inherit;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .item {
+    width: fit-content;
+    img {
+      width: auto;
+      max-width: 80vw;
+    }
+  }
+}
