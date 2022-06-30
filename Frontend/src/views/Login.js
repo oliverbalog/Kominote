@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useState } from "react";
 import { LoginUser } from "../services/UserService";
 import { UserContext } from "../services/UserContext";
+import { Navigate } from "react-router-dom";
 
 const Login = () => {
   const { user, setUser } = useContext(UserContext);
@@ -41,40 +42,39 @@ const Login = () => {
 
   return (
     <div className="mycontent">
+      <div>{user && <Navigate to="/dashboard" replace={true} />}</div>
       <Row>
         <h2 className="regTitle">Login</h2>
         <form onSubmit={handleSubmit}>
-          <div className="regForm">
-            <Row>
-              <Col>
-                <Row>
-                  <Col sm={4}>
-                    <label>Username: </label>
-                  </Col>
-                  <Col>
-                    <input
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      type="text"
-                    ></input>
-                  </Col>
-                </Row>
-              </Col>
-              <Col>
-                <Row>
-                  <Col sm={4}>
-                    <label>Password: </label>
-                  </Col>
-                  <Col>
-                    <input
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      type="text"
-                    ></input>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
+          <div className="reg-form">
+            <Col sm={12}>
+              <Row>
+                <Col>
+                  <label>Username: </label>
+                </Col>
+                <Col>
+                  <input
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    type="text"
+                  ></input>
+                </Col>
+              </Row>
+            </Col>
+            <Col sm={12} className="mt-4">
+              <Row>
+                <Col>
+                  <label>Password: </label>
+                </Col>
+                <Col>
+                  <input
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    type="password"
+                  ></input>
+                </Col>
+              </Row>
+            </Col>
             <Row>
               <Col className="text-center mt-5">
                 {!isPending && <button>Log in</button>}

@@ -43,15 +43,20 @@ $secondary: rgba(
     display: flex;
     top: 0;
     width: 100vw;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     background-color: rgba($color: #212121, $alpha: 0.8);
   }
 
+  .user-space {
+    display: flex;
+    justify-content: end;
+    width: 15vw;
+  }
   .searchbar {
-    margin: 0.5em;
+    /*  margin: 0.5em;
     position: absolute;
-    right: 1em;
+    right: 1em; */
 
     input[type="text"],
     textarea {
@@ -76,6 +81,7 @@ $secondary: rgba(
 
   .home-link {
     color: white;
+    width: 15vw;
   }
   .home {
   }
@@ -117,6 +123,10 @@ $secondary: rgba(
   justify-self: end;
   margin-left: 1em;
   margin-right: 1em;
+}
+
+.login-link {
+  color: white;
 }
 
 .home-icon {

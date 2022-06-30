@@ -28,30 +28,25 @@ export default function Navbar() {
           <Link className="Link" to="/users">
             <div className="menuItem">Users</div>
           </Link>
-          {!user && (
-            <Link className="Link" to="/registration">
-              <div className="registration">
-                <BiUserCircle />
-              </div>
-            </Link>
-          )}
-          {!user && (
-            <Link className="Link" to="/login">
-              <div className="login">
-                <BiUserCheck />
-              </div>
-            </Link>
-          )}
         </div>
-        {user.username && (
-          <Link className="dashboard-link" to="/dashboard">
-            <div className="logged-user">{user.username}</div>
-          </Link>
-        )}
-        <div className="searchbar">
-          <form>
-            <input type="text" placeholder="Search..."></input>
-          </form>
+        <div className="user-space">
+          <div className="searchbar">
+            <form>
+              <input type="text" placeholder="Search..."></input>
+            </form>
+          </div>
+          {!user && (
+            <Link className="login-link" to="/login">
+              <div className="login">
+                <BiUserCheck size="25" />
+              </div>
+            </Link>
+          )}
+          {user.username && (
+            <Link className="dashboard-link" to="/dashboard">
+              <div className="logged-user">{user.username}</div>
+            </Link>
+          )}
         </div>
       </nav>
     </div>

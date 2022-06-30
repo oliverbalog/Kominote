@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CreateUser } from "../services/UserService";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import { Container } from "react-bootstrap";
+import { UserContext } from "../services/UserContext";
+import { Navigate } from "react-router-dom";
 
 const Create = () => {
   const [firstname, setFirstname] = useState("");
@@ -14,6 +16,8 @@ const Create = () => {
 
   const [isPending, setIsPending] = useState(false);
   const [response, setResponse] = useState({});
+
+  const { user, setUser } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +41,7 @@ const Create = () => {
 
   return (
     <div>
+      <div>{user && <Navigate to="/dashboard" replace={true} />}</div>
       <div className="mycontent">
         <h2 className="regTitle">Registration</h2>
         <form onSubmit={handleSubmit}>
