@@ -1,0 +1,117 @@
+$lightBg: rgb(221, 221, 221);
+$darkBg: rgba(
+  $color: #212121,
+  $alpha: 0.8,
+);
+$darkBgFull: rgba(
+  $color: #212121,
+  $alpha: 1,
+);
+$whiteCont: white;
+
+.users-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.user-info {
+  flex-grow: 0.03;
+  width: 250px;
+  height: 300px;
+  background-color: $lightBg;
+  box-shadow: 0 2px 10px -5px black;
+  border-radius: 15px;
+  padding: 1em;
+  margin: 1em;
+  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 100px;
+    border-radius: 50%;
+    margin-bottom: 3em;
+  }
+}
+
+.user-info-dark {
+  background-color: $darkBg;
+  box-shadow: 0 2px 10px 0px black;
+}
+
+.user-info:hover {
+  background-color: rgb(133, 133, 133);
+}
+
+.user-info-dark:hover {
+  background-color: rgba($color: #ffffff, $alpha: 0.001);
+}
+
+.user-focus {
+  position: absolute;
+  width: 99.8vw;
+  height: 99.4vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  filter: contrast(10px);
+  z-index: 10;
+  .user-info {
+    background-color: $lightBg;
+    z-index: 25;
+    transform: scale(2);
+    .close {
+      position: absolute;
+      top: 0.5em;
+      right: 1em;
+      transform: scale(1.5);
+    }
+    .close:hover {
+      cursor: pointer;
+    }
+    .send-message {
+      position: absolute;
+      bottom: 1em;
+    }
+    .send-message:hover {
+      cursor: pointer;
+    }
+  }
+  .user-info-dark {
+    background-color: $darkBgFull;
+  }
+  .quick-message {
+    position: absolute;
+    bottom: -7em;
+    background-color: $lightBg;
+    width: inherit;
+    word-wrap: break-word;
+    font-size: 10px;
+    height: 6vh;
+    box-shadow: 0 2px 10px -5px black;
+    border-radius: 15px;
+    padding: 0.2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    button {
+      margin-left: 1em;
+    }
+  }
+  .quick-message-dark {
+    background-color: $darkBgFull;
+    box-shadow: 0 2px 10px 0px black;
+  }
+}
+
+.focus-mode {
+  filter: blur(50);
+}

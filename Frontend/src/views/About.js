@@ -3,7 +3,13 @@ import "../App.scss";
 
 export default function About() {
   return (
-    <div className="mycontent">
+    <div
+      className={
+        (window.localStorage.getItem("theme") === "dark" &&
+          "mycontent content-dark") ||
+        "mycontent"
+      }
+    >
       <div>safsaf</div>
     </div>
   );

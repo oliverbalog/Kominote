@@ -14,6 +14,7 @@ var User = new Schema({
   mobileNumber: {
     type: String,
     default: "",
+    unique: true,
   },
   createdDate: {
     type: Date,
@@ -26,10 +27,12 @@ var User = new Schema({
   email: {
     type: String,
     default: "",
+    unique: true,
   },
   username: {
     type: String,
     required: "Username field cannot be empty!",
+    unique: true,
   },
   password: {
     type: String,

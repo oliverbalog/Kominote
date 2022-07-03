@@ -4,18 +4,42 @@ var mongoose = require("mongoose"),
   Users = mongoose.model("User");
 
 exports.list_all_user = function (req, res) {
-  Users.find({}, function (err, user) {
+  Users.find({}, function (err, users) {
     if (err) res.send(err);
-    res.json(user);
+    res.json(
+      users.map((x) => {
+        return {
+          firstName: x.firstName,
+          lastName: x.lastName,
+          email: x.email,
+          mobileNumber: x.mobileNumber,
+          image: x.image,
+        };
+      })
+    );
   });
 };
 
-exports.create_a_user = function (req, res) {
-  var new_user = new Users(req.body);
-  new_user.save(function (err, user) {
-    if (err) res.send(err);
-    res.json(user);
-  });
+exports.create_a_user = async function (req, res) {
+  try {
+    var new_user = new Users(req.body);
+    new_user.save(function (err, user) {
+      if (err) {
+        if (err.keyPattern.mobileNumber) {
+          res.send({ error: "The mobile number is already in use!" });
+        }
+        if (err.keyPattern.email) {
+          res.send({ error: "The email is already in use!" });
+        }
+        if (err.keyPattern.username) {
+          res.send({ error: "The username is already in use!" });
+        }
+      }
+      res.json(user);
+    });
+  } catch (ex) {
+    console.log(ex);
+  }
 };
 
 exports.login_user = (req, res) => {
@@ -39,9 +63,7 @@ exports.login_user = (req, res) => {
         const jwtToken = require("jsonwebtoken").sign(
           success,
           process.env.JWT_SECRET,
-          {
-            expiresIn: "1h",
-          }
+          {}
         );
         res.cookie("token", jwtToken);
         res.json({
@@ -70,6 +92,21 @@ exports.authorize_level = (req, res) => {
     } else {
       res.json({ authLevel: 0 });
     }
+  });
+};
+
+exports.check_token = (req, res) => {
+  const jwtToken = require("jsonwebtoken").verify(
+    req.cookies.token,
+    process.env.JWT_SECRET,
+    {}
+  );
+  res.json({
+    username: jwtToken.userInfo.username,
+    firstName: jwtToken.userInfo.firstName,
+    lastName: jwtToken.userInfo.lastName,
+    image: jwtToken.userInfo.image,
+    emai: jwtToken.userInfo.email,
   });
 };
 

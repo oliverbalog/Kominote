@@ -1,0 +1,15 @@
+.navigate-button {
+  margin-top: 2em;
+  padding: 1em;
+  background-color: rgba($color: #000000, $alpha: 0.1);
+  border-radius: 9px;
+  box-shadow: 0 0 5px -2px black;
+  color: black;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navigate-button-dark {
+  color: white;
+}

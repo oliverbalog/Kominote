@@ -18,11 +18,17 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="mycontent">
+    <div
+      className={
+        (window.localStorage.getItem("theme") === "dark" &&
+          "mycontent content-dark") ||
+        "mycontent"
+      }
+    >
       <h2>Dashboard</h2>
       <h3>Hello {user.firstName}!</h3>
-      {authLevel == 3 && <div>You are an admin!</div>}
-      {authLevel == 1 && <div>You are a user</div>}
+      {authLevel === 3 && <div>You are an admin!</div>}
+      {authLevel === 1 && <div>You are a user</div>}
     </div>
   );
 };

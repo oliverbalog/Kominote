@@ -1,12 +1,16 @@
-import { useContext, useState } from "react";
-import { CreateUser } from "../services/UserService";
+import { useContext, useEffect, useState } from "react";
+import { CreateUser, LoginUser } from "../services/UserService";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { UserContext } from "../services/UserContext";
 import { Navigate } from "react-router-dom";
+import { NavigateButton } from "../components/NavigateButton/NavigateButton";
+import { generateHashPassword } from "../services/GenerateHash";
 
 const Create = () => {
+  const { user, setUser } = useContext(UserContext);
+
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
@@ -17,35 +21,60 @@ const Create = () => {
   const [isPending, setIsPending] = useState(false);
   const [response, setResponse] = useState({});
 
-  const { user, setUser } = useContext(UserContext);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = {
       firstName: firstname,
       lastName: lastname,
       username,
-      password,
+      password: (await generateHashPassword(password)).toString(),
       email,
       mobileNumber: mobile,
     };
-
     setIsPending(true);
 
     const x = CreateUser(user);
-    x.then((e) => {
+    x.then((resp_user) => {
+      setResponse(resp_user);
       setIsPending(false);
-      setResponse(e);
+      if (resp_user && !resp_user.error) {
+        setIsPending(true);
+
+        //login registrated user
+        const z = LoginUser({
+          username: user.username,
+          password: user.password,
+        });
+        z.then((succ) => {
+          setIsPending(false);
+          if (succ.isSucceeded) {
+            setUser({
+              username: succ.username,
+              image: succ.image,
+              firstName: succ.firstName,
+              lastName: succ.lastName,
+            });
+          }
+        });
+      }
     });
   };
+
+  useEffect(() => {}, [response]);
 
   return (
     <div>
       <div>{user && <Navigate to="/dashboard" replace={true} />}</div>
-      <div className="mycontent">
-        <h2 className="regTitle">Registration</h2>
+      <div
+        className={
+          (window.localStorage.getItem("theme") === "dark" &&
+            "mycontent content-dark") ||
+          "mycontent"
+        }
+      >
+        <h2>Registration</h2>
         <form onSubmit={handleSubmit}>
-          <div className="regForm">
+          <div className="reg-form">
             <Row>
               <Col sm={6}>
                 <Row className="d-flex justify-content-center">
@@ -101,7 +130,7 @@ const Create = () => {
                   </Col>
                   <Col className="d-flex justify-content-center">
                     <input
-                      type="text"
+                      type="password"
                       required
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
@@ -118,7 +147,7 @@ const Create = () => {
                   </Col>
                   <Col className="d-flex justify-content-center">
                     <input
-                      type="text"
+                      type="email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -133,7 +162,7 @@ const Create = () => {
                   </Col>
                   <Col className="d-flex justify-content-center">
                     <input
-                      type="text"
+                      type="tel"
                       value={mobile}
                       onChange={(e) => setMobile(e.target.value)}
                     />
@@ -142,16 +171,24 @@ const Create = () => {
               </Col>
             </Row>
             <Row>
-              <Col className="text-center">
-                <div className="regBtn">
+              <Col className="text-center mt-5">
+                <div>
                   {!isPending && <button>Register</button>}
                   {isPending && <button disabled>Registering...</button>}
                 </div>
               </Col>
             </Row>
+            <NavigateButton value="Rather log in" to="/login" />
           </div>
         </form>
       </div>
+      {response.error && (
+        <div className="danger-msg">
+          <Row className="text-ceter mt-3 alert alert-danger danger-msg">
+            <p className="text-center">{response.error}</p>
+          </Row>
+        </div>
+      )}
       {response.username && (
         <div className="success-msg">
           <Row className="text-center mt-3 alert alert-success success-msg">

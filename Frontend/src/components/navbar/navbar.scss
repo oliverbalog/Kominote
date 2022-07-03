@@ -1,19 +1,40 @@
 $secondary: rgba(
-  $color: #212121,
+  $color: #d2d2d2,
   $alpha: 0.8,
 );
 
+.theme-switcher {
+  cursor: pointer;
+}
+
 .mynavbar {
   position: fixed;
-  background-color: $secondary;
+  /* background-color: $secondary; */
+
+  color: black;
+  a {
+    color: black;
+  }
+  a:hover {
+    color: rgba($color: #000000, $alpha: 0.4) !important;
+  }
+}
+
+.navbar-dark {
+  /* background-color: rgba($color: #000000, $alpha: 0.8); */
+  color: white;
+  a {
+    color: white;
+  }
+  a:hover {
+    color: rgba($color: #ffffff, $alpha: 0.6) !important;
+  }
 }
 
 .home {
-  color: white;
 }
 
 .registration {
-  color: white;
 }
 
 @media screen and (min-width: 1000px) {
@@ -24,13 +45,9 @@ $secondary: rgba(
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+
     margin: 0.5em;
     transition: box-shadow 1s;
-    text-decoration: none;
-  }
-
-  .Link {
     text-decoration: none;
   }
 
@@ -42,21 +59,21 @@ $secondary: rgba(
   .mynavbar {
     display: flex;
     top: 0;
+    height: 6vh;
     width: 100vw;
     justify-content: space-around;
     align-items: center;
-    background-color: rgba($color: #212121, $alpha: 0.8);
+    border-bottom: 2px solid rgba($color: #7c7c7c, $alpha: 0.5);
   }
 
   .user-space {
     display: flex;
     justify-content: end;
+    align-items: center;
     width: 15vw;
   }
   .searchbar {
-    /*  margin: 0.5em;
-    position: absolute;
-    right: 1em; */
+    margin-left: 1em;
 
     input[type="text"],
     textarea {
@@ -77,17 +94,16 @@ $secondary: rgba(
   .center-links {
     display: flex;
     justify-content: center;
+    align-items: center;
+    .theme-switch {
+      margin-left: 2em;
+    }
   }
 
-  .home-link {
-    color: white;
-    width: 15vw;
-  }
   .home {
   }
 
   .registration {
-    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -114,20 +130,106 @@ $secondary: rgba(
     padding-left: 5vw;
     padding-right: 5vw;
     bottom: 0px;
+    border-top: 2px solid rgba($color: #7c7c7c, $alpha: 0.5);
   }
 }
 
 .logged-user {
-  color: white;
   float: right;
   justify-self: end;
   margin-left: 1em;
   margin-right: 1em;
+  img {
+    width: 1vw;
+    border-radius: 50%;
+  }
+
+  #dropdown-menux {
+    //lista hatter
+    background-color: rgba($color: #898989, $alpha: 1);
+    color: white;
+    width: 280px;
+    border-radius: 9px;
+    a {
+      color: rgb(255, 255, 255);
+    }
+    .show {
+    }
+    img {
+      margin-right: 0.7em;
+    }
+  }
+
+  #dropdwn {
+  }
+
+  .btn-check:active + .btn-dark,
+  .btn-check:checked + .btn-dark,
+  .btn-dark.active,
+  .btn-dark:active,
+  .show > .btn-dark.dropdown-toggle {
+    background-color: rgba($color: #898989, $alpha: 0.7);
+  }
+  .btn-check:focus + .btn-dark,
+  .btn-dark:focus {
+    background-color: rgba($color: #898989, $alpha: 0.7);
+    border: 0;
+    outline: 0;
+  }
+
+  .dropdown-toggl {
+    background-color: rgba($color: #898989, $alpha: 0.5);
+    border: none;
+    height: 3.5vh;
+    display: flex;
+    align-items: center;
+    .show {
+    }
+    img {
+      width: 2vh;
+      margin-right: 0.7em;
+    }
+  }
+  .dropdown-toggl:hover {
+    background-color: rgba($color: #898989, $alpha: 0.7);
+  }
+  .dropdown-toggl:active {
+  }
+
+  .dropdown-item {
+    width: 250px;
+    display: flex;
+    align-items: center;
+    border-radius: 9px;
+    justify-content: center;
+    display: flex;
+    margin-top: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    height: 50px;
+  }
+  .dropdown-item:hover {
+    background-color: #7c7c7c;
+  }
+  .dropdown-item:active {
+    background-color: #595959 !important;
+  }
 }
 
 .login-link {
-  color: white;
 }
 
 .home-icon {
+}
+
+.search-icon {
+}
+
+.logout {
+  margin-left: 2em;
+  cursor: pointer;
+}
+
+.home-space {
+  width: 15vw;
 }
